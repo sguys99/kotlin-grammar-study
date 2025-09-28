@@ -109,35 +109,59 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //
 //}
 
-// 5. foreach에서 인덱스를 가져오는 방법
-fun main(){
-    val friends = listOf<String>("철수", "존시나", "에이미", "영희", "제임스")
+//// 5. foreach에서 인덱스를 가져오는 방법
+//fun main(){
+//    val friends = listOf<String>("철수", "존시나", "에이미", "영희", "제임스")
+//
+//    for(aFriend in friends){
+//        println("$aFriend")
+//    }
+//
+//    // 인덱스까지 가져오려면
+//    for((index, aFriend) in friends.withIndex()){
+//        println("index : $index, aFriend: $aFriend")
+//    }
+//}
+//
+//class MainActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        enableEdgeToEdge()
+//        setContent {
+//            MyApplicationTheme {
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
+//            }
+//        }
+//    }
+//}
 
-    for(aFriend in friends){
-        println("$aFriend")
+fun main() {
+    fun sayHi(){
+        println("안녕하세요.")
     }
 
-    // 인덱스까지 가져오려면
-    for((index, aFriend) in friends.withIndex()){
-        println("index : $index, aFriend: $aFriend")
+    fun sayHiWithName(name: String){
+        println("안녕하세요? $name")
     }
-}
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MyApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
+    fun sayHiWithNameDefault(name: String = "anonymous"){
+        println("안녕하세요 $name")
     }
+
+    fun getName() : String { // 값을 리턴하는 메서드
+        return "anonymous"
+    }
+
+    sayHi()
+    sayHiWithName("하하 할머니")
+    sayHiWithNameDefault()
+    val fetchedName : String = getName()
+    sayHiWithNameDefault(fetchedName)
 }
 
 @Composable
