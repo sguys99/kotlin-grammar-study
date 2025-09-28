@@ -77,36 +77,50 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //}
 
 
-// 4. 배열
-fun main() {
-    //val friends = listOf("철수", "영희", "제임스")
-    val friends = listOf<String>("철수", "영희", "제임스")
-    println(friends)
+//// 4. 배열
+//fun main() {
+//    //val friends = listOf("철수", "영희", "제임스")
+//    val friends = listOf<String>("철수", "영희", "제임스")
+//    println(friends)
+//
+//    val anyNames = listOf<Any>("철수", 2, 2.3, "제임스")
+//    println(anyNames)
+//
+//    // 요소접근
+//    println(friends.get(0))
+//    println(friends[0])
+//    println(friends.first())
+//
+//    // list는 immutable임
+//    // friends[0] = "cheolsu" // 불가
+//    val mutableFriends = mutableListOf<String>("철수", "영희", "제임스")
+//    mutableFriends[0] = "cheolsu"
+//    println(mutableFriends)
+//
+//    // array: 뮤터블임
+//    val myNumbers = arrayOf(1, 2, 3)
+//    // val myNumbers = arrayListOf(1, 2, 3)
+//    myNumbers[0] = 888
+//    println(myNumbers)
+//
+//    for (aNumber in myNumbers){
+//        println(aNumber)
+//    }
+//
+//}
 
-    val anyNames = listOf<Any>("철수", 2, 2.3, "제임스")
-    println(anyNames)
+// 5. foreach에서 인덱스를 가져오는 방법
+fun main(){
+    val friends = listOf<String>("철수", "존시나", "에이미", "영희", "제임스")
 
-    // 요소접근
-    println(friends.get(0))
-    println(friends[0])
-    println(friends.first())
-
-    // list는 immutable임
-    // friends[0] = "cheolsu" // 불가
-    val mutableFriends = mutableListOf<String>("철수", "영희", "제임스")
-    mutableFriends[0] = "cheolsu"
-    println(mutableFriends)
-
-    // array: 뮤터블임
-    val myNumbers = arrayOf(1, 2, 3)
-    // val myNumbers = arrayListOf(1, 2, 3)
-    myNumbers[0] = 888
-    println(myNumbers)
-
-    for (aNumber in myNumbers){
-        println(aNumber)
+    for(aFriend in friends){
+        println("$aFriend")
     }
 
+    // 인덱스까지 가져오려면
+    for((index, aFriend) in friends.withIndex()){
+        println("index : $index, aFriend: $aFriend")
+    }
 }
 
 class MainActivity : ComponentActivity() {
