@@ -140,28 +140,66 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    }
 //}
 
-fun main() {
-    fun sayHi(){
-        println("안녕하세요.")
-    }
+//// 6. 함수
+//fun main() {
+//    fun sayHi(){
+//        println("안녕하세요.")
+//    }
+//
+//    fun sayHiWithName(name: String){
+//        println("안녕하세요? $name")
+//    }
+//
+//    fun sayHiWithNameDefault(name: String = "anonymous"){
+//        println("안녕하세요 $name")
+//    }
+//
+//    fun getName() : String { // 값을 리턴하는 메서드
+//        return "anonymous"
+//    }
+//
+//    sayHi()
+//    sayHiWithName("하하 할머니")
+//    sayHiWithNameDefault()
+//    val fetchedName : String = getName()
+//    sayHiWithNameDefault(fetchedName)
+//}
 
-    fun sayHiWithName(name: String){
-        println("안녕하세요? $name")
-    }
+// 7. mapOf: 패어 정보, 뮤터블과 이뮤터블이 있다.
+fun main(){
+    // Pair<A, B>
 
-    fun sayHiWithNameDefault(name: String = "anonymous"){
-        println("안녕하세요 $name")
-    }
+    val nameAgePairs = mapOf<String, Int>(
+        "철수" to 10,
+        "영희" to 13,
+        "영희" to 13, // 키는 고유 값이므로 두번 들어가지 않는다.
+        )
+    println(nameAgePairs)
 
-    fun getName() : String { // 값을 리턴하는 메서드
-        return "anonymous"
-    }
+    val nameAgePairs2 = mapOf<String, Int>(
+        Pair("철수", 20),
+        Pair("영희", 13),
+    )
+    println(nameAgePairs2)
 
-    sayHi()
-    sayHiWithName("하하 할머니")
-    sayHiWithNameDefault()
-    val fetchedName : String = getName()
-    sayHiWithNameDefault(fetchedName)
+    // 빈 맵, 수정불가
+    val emptyPairs = emptyMap<String, Int>()
+    println(emptyPairs)
+
+    // 뮤터블맵, 수정가능
+    val mutableNameAgePairs = mutableMapOf<String, Int>(
+        Pair("철수", 20),
+        Pair("영희", 13),
+    )
+
+    mutableNameAgePairs.put("호호", 20)
+    mutableNameAgePairs["키키"] = 25
+
+    println(mutableNameAgePairs)
+
+    println(mutableNameAgePairs.keys)
+    println(mutableNameAgePairs.values)
+
 }
 
 @Composable
