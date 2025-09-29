@@ -202,29 +202,59 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //
 //}
 
-// 8. sefOf, 유니크한 값 만 가짐, 뮤터블/ 이뮤터블 있음
+//// 8. sefOf, 유니크한 값 만 가짐, 뮤터블/ 이뮤터블 있음
+//
+//fun main(){
+//    var myNumberSet = mutableSetOf<Int>(1, 3, 3, 3, 3, 4)
+//
+//    println(myNumberSet)
+//
+//    myNumberSet.add(10)
+//    println(myNumberSet)
+//
+//    // toMutableSet()으로 이뮤터블로 변경 가능
+//    val mutableSet = myNumberSet.toMutableSet()
+//
+//    // 제거
+//    mutableSet.remove(1)
+//    println(mutableSet)
+//
+//    // 인덱스 출력
+//    val results = mutableSet.withIndex()
+//
+//    results.forEach {
+//        anItem -> println("anItem : ${anItem.index}, ${anItem.value}")
+//    }
+//}
+
+// 9. enum
+//enum class Pet{
+//    CAT, DOG, BIRD
+//}
+
+// 값을 넣을 수도 있다.
+enum class Pet(val info: String){
+    CAT("고양이"), DOG("강아지"), BIRD("앵무새")
+}
 
 fun main(){
-    var myNumberSet = mutableSetOf<Int>(1, 3, 3, 3, 3, 4)
+    val pet = Pet.DOG
 
-    println(myNumberSet)
-
-    myNumberSet.add(10)
-    println(myNumberSet)
-
-    // toMutableSet()으로 이뮤터블로 변경 가능
-    val mutableSet = myNumberSet.toMutableSet()
-
-    // 제거
-    mutableSet.remove(1)
-    println(mutableSet)
-
-    // 인덱스 출력
-    val results = mutableSet.withIndex()
-
-    results.forEach {
-        anItem -> println("anItem : ${anItem.index}, ${anItem.value}")
+    if (pet==Pet.DOG){
+        println("DOG")
     }
+
+    when(pet){
+        Pet.CAT -> println("CAT")
+        Pet.DOG -> {
+            println("DOG")
+        }
+        else -> {
+            println("BIRD")
+        }
+    }
+
+    println("${pet.info}")
 }
 
 @Composable
