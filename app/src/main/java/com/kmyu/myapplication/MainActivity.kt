@@ -292,16 +292,29 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    println(resultsWithIndex)
 //}
 
-// 12. zip: 두가지의 컬렉션(자료구조)을 묶는 기능
+//// 12. zip: 두가지의 컬렉션(자료구조)을 묶는 기능
+//
+//fun main(){
+//    val myFriends = listOf<String>("철수", "제임스", "영희", "제시카")
+//    val numbers = listOf<Int>(1, 4, 7, 9, 10, 20)
+//
+//    val result = myFriends.zip(numbers) // 4개에 맞춰지고 나머지는 버려짐
+//
+//    println(result)
+//
+//}
+
+// 13. flatten
 
 fun main(){
-    val myFriends = listOf<String>("철수", "제임스", "영희", "제시카")
-    val numbers = listOf<Int>(1, 4, 7, 9, 10, 20)
+    val firstFriends = listOf<String>("철수", "제임스", "영희", "제시카")
+    val secondFriends = listOf<String>("에이미", "잭슨", "윙", "세바스찬")
 
-    val result = myFriends.zip(numbers) // 4개에 맞춰지고 나머지는 버려짐
+    val totalFriends = listOf(firstFriends, secondFriends)
+    println(totalFriends) // 리스트 중첩형태
 
-    println(result)
-
+    val flattenFriends = totalFriends.flatten() // 펴기
+    println(flattenFriends)
 }
 
 @Composable
