@@ -165,41 +165,66 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    sayHiWithNameDefault(fetchedName)
 //}
 
-// 7. mapOf: 패어 정보, 뮤터블과 이뮤터블이 있다.
+//// 7. mapOf: 패어 정보, 뮤터블과 이뮤터블이 있다.
+//fun main(){
+//    // Pair<A, B>
+//
+//    val nameAgePairs = mapOf<String, Int>(
+//        "철수" to 10,
+//        "영희" to 13,
+//        "영희" to 13, // 키는 고유 값이므로 두번 들어가지 않는다.
+//        )
+//    println(nameAgePairs)
+//
+//    val nameAgePairs2 = mapOf<String, Int>(
+//        Pair("철수", 20),
+//        Pair("영희", 13),
+//    )
+//    println(nameAgePairs2)
+//
+//    // 빈 맵, 수정불가
+//    val emptyPairs = emptyMap<String, Int>()
+//    println(emptyPairs)
+//
+//    // 뮤터블맵, 수정가능
+//    val mutableNameAgePairs = mutableMapOf<String, Int>(
+//        Pair("철수", 20),
+//        Pair("영희", 13),
+//    )
+//
+//    mutableNameAgePairs.put("호호", 20)
+//    mutableNameAgePairs["키키"] = 25
+//
+//    println(mutableNameAgePairs)
+//
+//    println(mutableNameAgePairs.keys)
+//    println(mutableNameAgePairs.values)
+//
+//}
+
+// 8. sefOf, 유니크한 값 만 가짐, 뮤터블/ 이뮤터블 있음
+
 fun main(){
-    // Pair<A, B>
+    var myNumberSet = mutableSetOf<Int>(1, 3, 3, 3, 3, 4)
 
-    val nameAgePairs = mapOf<String, Int>(
-        "철수" to 10,
-        "영희" to 13,
-        "영희" to 13, // 키는 고유 값이므로 두번 들어가지 않는다.
-        )
-    println(nameAgePairs)
+    println(myNumberSet)
 
-    val nameAgePairs2 = mapOf<String, Int>(
-        Pair("철수", 20),
-        Pair("영희", 13),
-    )
-    println(nameAgePairs2)
+    myNumberSet.add(10)
+    println(myNumberSet)
 
-    // 빈 맵, 수정불가
-    val emptyPairs = emptyMap<String, Int>()
-    println(emptyPairs)
+    // toMutableSet()으로 이뮤터블로 변경 가능
+    val mutableSet = myNumberSet.toMutableSet()
 
-    // 뮤터블맵, 수정가능
-    val mutableNameAgePairs = mutableMapOf<String, Int>(
-        Pair("철수", 20),
-        Pair("영희", 13),
-    )
+    // 제거
+    mutableSet.remove(1)
+    println(mutableSet)
 
-    mutableNameAgePairs.put("호호", 20)
-    mutableNameAgePairs["키키"] = 25
+    // 인덱스 출력
+    val results = mutableSet.withIndex()
 
-    println(mutableNameAgePairs)
-
-    println(mutableNameAgePairs.keys)
-    println(mutableNameAgePairs.values)
-
+    results.forEach {
+        anItem -> println("anItem : ${anItem.index}, ${anItem.value}")
+    }
 }
 
 @Composable
