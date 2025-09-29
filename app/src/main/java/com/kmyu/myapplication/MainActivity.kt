@@ -274,22 +274,34 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    println(myNumberMutableList.toSortedSet(comparator = Comparator.reverseOrder()))
 //}
 
-// 11. map, index
+//// 11. map, index
+//fun main(){
+//    val myFriends = listOf<String>("철수", "제임스", "영희", "제시카")
+//
+//    val results = myFriends.map {name ->
+//        "이름: $name"
+//    }
+//
+//    println(results)
+//
+//    // 인덱스도 함께 부여하고 싶다면
+//    val resultsWithIndex = myFriends.mapIndexed { index, name ->
+//        "index: $index 이름: $name"
+//    }
+//
+//    println(resultsWithIndex)
+//}
+
+// 12. zip: 두가지의 컬렉션(자료구조)을 묶는 기능
+
 fun main(){
     val myFriends = listOf<String>("철수", "제임스", "영희", "제시카")
+    val numbers = listOf<Int>(1, 4, 7, 9, 10, 20)
 
-    val results = myFriends.map {name ->
-        "이름: $name"
-    }
+    val result = myFriends.zip(numbers) // 4개에 맞춰지고 나머지는 버려짐
 
-    println(results)
+    println(result)
 
-    // 인덱스도 함께 부여하고 싶다면
-    val resultsWithIndex = myFriends.mapIndexed { index, name ->
-        "index: $index 이름: $name"
-    }
-
-    println(resultsWithIndex)
 }
 
 @Composable
