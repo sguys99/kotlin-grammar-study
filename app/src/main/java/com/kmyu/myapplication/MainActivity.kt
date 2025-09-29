@@ -257,21 +257,39 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    println("${pet.info}")
 //}
 
-// 10. 콜렉션 변환: 예를 들어 mutable을 이뮤터블로 변경가능
+//// 10. 콜렉션 변환: 예를 들어 mutable을 이뮤터블로 변경가능
+//fun main(){
+//    val myNumberList = listOf<Int>(1, 5, 7, 3, 3, 4, 4)
+//
+//    val myNumberMutableList = myNumberList.toMutableList()
+//
+//    println(myNumberMutableList)
+//
+//    // set으로 변경하기(고유한 요소만 있는)
+//    val myNumbersSet = myNumberList.toSet()
+//    println(myNumbersSet)
+//
+//    //정렬하기
+//    println(myNumberMutableList.toSortedSet())
+//    println(myNumberMutableList.toSortedSet(comparator = Comparator.reverseOrder()))
+//}
+
+// 11. map, index
 fun main(){
-    val myNumberList = listOf<Int>(1, 5, 7, 3, 3, 4, 4)
+    val myFriends = listOf<String>("철수", "제임스", "영희", "제시카")
 
-    val myNumberMutableList = myNumberList.toMutableList()
+    val results = myFriends.map {name ->
+        "이름: $name"
+    }
 
-    println(myNumberMutableList)
+    println(results)
 
-    // set으로 변경하기(고유한 요소만 있는)
-    val myNumbersSet = myNumberList.toSet()
-    println(myNumbersSet)
+    // 인덱스도 함께 부여하고 싶다면
+    val resultsWithIndex = myFriends.mapIndexed { index, name ->
+        "index: $index 이름: $name"
+    }
 
-    //정렬하기
-    println(myNumberMutableList.toSortedSet())
-    println(myNumberMutableList.toSortedSet(comparator = Comparator.reverseOrder()))
+    println(resultsWithIndex)
 }
 
 @Composable
