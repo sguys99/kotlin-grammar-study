@@ -227,34 +227,51 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    }
 //}
 
-// 9. enum
-//enum class Pet{
-//    CAT, DOG, BIRD
+//// 9. enum
+////enum class Pet{
+////    CAT, DOG, BIRD
+////}
+//
+//// 값을 넣을 수도 있다.
+//enum class Pet(val info: String){
+//    CAT("고양이"), DOG("강아지"), BIRD("앵무새")
+//}
+//
+//fun main(){
+//    val pet = Pet.DOG
+//
+//    if (pet==Pet.DOG){
+//        println("DOG")
+//    }
+//
+//    when(pet){
+//        Pet.CAT -> println("CAT")
+//        Pet.DOG -> {
+//            println("DOG")
+//        }
+//        else -> {
+//            println("BIRD")
+//        }
+//    }
+//
+//    println("${pet.info}")
 //}
 
-// 값을 넣을 수도 있다.
-enum class Pet(val info: String){
-    CAT("고양이"), DOG("강아지"), BIRD("앵무새")
-}
-
+// 10. 콜렉션 변환: 예를 들어 mutable을 이뮤터블로 변경가능
 fun main(){
-    val pet = Pet.DOG
+    val myNumberList = listOf<Int>(1, 5, 7, 3, 3, 4, 4)
 
-    if (pet==Pet.DOG){
-        println("DOG")
-    }
+    val myNumberMutableList = myNumberList.toMutableList()
 
-    when(pet){
-        Pet.CAT -> println("CAT")
-        Pet.DOG -> {
-            println("DOG")
-        }
-        else -> {
-            println("BIRD")
-        }
-    }
+    println(myNumberMutableList)
 
-    println("${pet.info}")
+    // set으로 변경하기(고유한 요소만 있는)
+    val myNumbersSet = myNumberList.toSet()
+    println(myNumbersSet)
+
+    //정렬하기
+    println(myNumberMutableList.toSortedSet())
+    println(myNumberMutableList.toSortedSet(comparator = Comparator.reverseOrder()))
 }
 
 @Composable
