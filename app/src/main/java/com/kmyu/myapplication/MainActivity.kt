@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kmyu.myapplication.ui.theme.MyApplicationTheme
@@ -355,66 +356,125 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //
 //}
 
-// 15. filter
-data class Friend(val name: String, val age: Int){}
+//// 15. filter
+//data class Friend(val name: String, val age: Int){}
+//
+//fun main(){
+//    val myFriends = mutableListOf<Friend>()
+//
+//    myFriends.add(Friend("Bob1", 10))
+//    myFriends.add(Friend("Bob2", 13))
+//    myFriends.add(Friend("Bob3", 16))
+//    myFriends.add(Friend("Bob4", 20))
+//    myFriends.add(Friend("Bob5", 24))
+//    myFriends.add(Friend("Bob6", 100))
+//    myFriends.add(Friend("Bob6", 101))
+//    myFriends.add(Friend("호시기", 102))
+//    myFriends.add(Friend("Bob6", 103))
+//    myFriends.add(Friend("Bob6", 104))
+//
+//    val filteredList = myFriends.filter({
+//        it.age < 20
+//    })
+//
+//    println("filteredList: ${filteredList}")
+//
+//    // 필터 사용 예시
+//    // 요소 찾기
+//    val foundFriends = myFriends.filter({
+//        it.name == "호시기"
+//    }).first()
+//
+//    println(foundFriends)
+//
+//    val foundFriends2 = myFriends.filter({
+//        it.name == "호시기2"
+//    }).firstOrNull() // Null이 있어도 에러 발생안함
+//
+//    println(foundFriends2)
+//
+//    // ***인라인으로 사용하기
+//    val filteredList2 = myFriends.filter(::filteredYoung)
+//    println(filteredList2)
+//
+//    val filteredList3 = myFriends.filter(FriendFilter.YOUNG::filter) // 확인요
+//    println(filteredList3)
+//}
+//
+//fun filteredYoung(friend: Friend) : Boolean{
+//    return friend.age < 20
+//}
+//
+//// enum class에 필터 적용 가능
+//enum class FriendFilter {
+//    OLD, YOUNG;
+//    fun filter(friend: Friend) : Boolean{
+//        return when(this){
+//            OLD -> friend.age >= 20
+//            YOUNG -> friend.age < 20
+//        }
+//    }
+//}
+
+// 16. groupBy
+data class Student(val name: String, val age: Int){}
 
 fun main(){
-    val myFriends = mutableListOf<Friend>()
+    val student = mutableListOf<Student>()
 
-    myFriends.add(Friend("Bob1", 10))
-    myFriends.add(Friend("Bob2", 13))
-    myFriends.add(Friend("Bob3", 16))
-    myFriends.add(Friend("Bob4", 20))
-    myFriends.add(Friend("Bob5", 24))
-    myFriends.add(Friend("Bob6", 100))
-    myFriends.add(Friend("Bob6", 101))
-    myFriends.add(Friend("호시기", 102))
-    myFriends.add(Friend("Bob6", 103))
-    myFriends.add(Friend("Bob6", 104))
+    student.add(Student("학생_1", 10))
+    student.add(Student("학생_1", 13))
+    student.add(Student("학생_1", 16))
+    student.add(Student("학생_4", 20))
+    student.add(Student("학생_5", 24))
+    student.add(Student("학생_6", 100))
+    student.add(Student("학생_7", 101))
+    student.add(Student("학생_8", 102))
+    student.add(Student("학생_9", 103))
+    student.add(Student("학생_10", 104))
 
-    val filteredList = myFriends.filter({
-        it.age < 20
+    val result1 = student.groupBy({
+        it.name
     })
 
-    println("filteredList: ${filteredList}")
+    println("result1: $result1")
 
-    // 필터 사용 예시
-    // 요소 찾기
-    val foundFriends = myFriends.filter({
-        it.name == "호시기"
-    }).first()
+    val result2 = student.groupBy({
+        it.name
+    }, valueTransform = {
+        it.age
+    })
 
-    println(foundFriends)
+    println("result2: $result2")
 
-    val foundFriends2 = myFriends.filter({
-        it.name == "호시기2"
-    }).firstOrNull() // Null이 있어도 에러 발생안함
+    // groupingBy
+    val grouping : Grouping<Student, String> = student.groupingBy({
+        it.name
+    })
 
-    println(foundFriends2)
+    // 사용법
+    // 요소 하나당 몇개가 있는지만 알고 싶을 때
+    val resultA = grouping.eachCount()
+    println("resultA: $resultA")
 
-    // ***인라인으로 사용하기
-    val filteredList2 = myFriends.filter(::filteredYoung)
-    println(filteredList2)
-
-    val filteredList3 = myFriends.filter(FriendFilter.YOUNG::filter) // 확인요
-    println(filteredList3)
-}
-
-fun filteredYoung(friend: Friend) : Boolean{
-    return friend.age < 20
-}
-
-// enum class에 필터 적용 가능
-enum class FriendFilter {
-    OLD, YOUNG;
-    fun filter(friend: Friend) : Boolean{
-        return when(this){
-            OLD -> friend.age >= 20
-            YOUNG -> friend.age < 20
-        }
+    // 나이 총합 알고 싶을때???
+    val resultB = grouping.fold(0){accumulator, element ->
+        accumulator + element.age
     }
-}
 
+    println("resultB: $resultB")
+
+    // aggregate를 사용해서 동일한 방법 얻고 싶을 때
+    val resultC = grouping.aggregate{ key, accumulator: Int?, element, first ->
+        if(first)
+            element.age
+        else
+            accumulator?.plus(element.age)
+    }
+    println("resultB: $resultC")
+
+
+}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
