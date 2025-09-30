@@ -416,63 +416,108 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    }
 //}
 
-// 16. groupBy
-data class Student(val name: String, val age: Int){}
+//// 16. groupBy
+//data class Student(val name: String, val age: Int){}
+//
+//fun main(){
+//    val student = mutableListOf<Student>()
+//
+//    student.add(Student("학생_1", 10))
+//    student.add(Student("학생_1", 13))
+//    student.add(Student("학생_1", 16))
+//    student.add(Student("학생_4", 20))
+//    student.add(Student("학생_5", 24))
+//    student.add(Student("학생_6", 100))
+//    student.add(Student("학생_7", 101))
+//    student.add(Student("학생_8", 102))
+//    student.add(Student("학생_9", 103))
+//    student.add(Student("학생_10", 104))
+//
+//    val result1 = student.groupBy({
+//        it.name
+//    })
+//
+//    println("result1: $result1")
+//
+//    val result2 = student.groupBy({
+//        it.name
+//    }, valueTransform = {
+//        it.age
+//    })
+//
+//    println("result2: $result2")
+//
+//    // groupingBy
+//    val grouping : Grouping<Student, String> = student.groupingBy({
+//        it.name
+//    })
+//
+//    // 사용법
+//    // 요소 하나당 몇개가 있는지만 알고 싶을 때
+//    val resultA = grouping.eachCount()
+//    println("resultA: $resultA")
+//
+//    // 나이 총합 알고 싶을때???
+//    val resultB = grouping.fold(0){accumulator, element ->
+//        accumulator + element.age
+//    }
+//
+//    println("resultB: $resultB")
+//
+//    // aggregate를 사용해서 동일한 방법 얻고 싶을 때
+//    val resultC = grouping.aggregate{ key, accumulator: Int?, element, first ->
+//        if(first)
+//            element.age
+//        else
+//            accumulator?.plus(element.age)
+//    }
+//    println("resultB: $resultC")
+//
+//
+//}
+
+
+// 17. reverse: 리스트 순서 뒤집기
 
 fun main(){
-    val student = mutableListOf<Student>()
+    val myPets : List<String> = listOf<String>("고양이", "강아지", "소")
 
-    student.add(Student("학생_1", 10))
-    student.add(Student("학생_1", 13))
-    student.add(Student("학생_1", 16))
-    student.add(Student("학생_4", 20))
-    student.add(Student("학생_5", 24))
-    student.add(Student("학생_6", 100))
-    student.add(Student("학생_7", 101))
-    student.add(Student("학생_8", 102))
-    student.add(Student("학생_9", 103))
-    student.add(Student("학생_10", 104))
+    val reversed1 = myPets.reversed()
+    val reversed2 = myPets.asReversed()
 
-    val result1 = student.groupBy({
-        it.name
-    })
+    // 결과가 같다.
+    println("reversed1 : $reversed1")
+    println("reversed2 : $reversed2")
 
-    println("result1: $result1")
+    // 그러나 mutable일때 주의
+    val myPets2: MutableList<String> = mutableListOf<String>("고양이", "강아지", "소")
 
-    val result2 = student.groupBy({
-        it.name
-    }, valueTransform = {
-        it.age
-    })
+    println("original - myPets2 : $myPets2")
+    myPets2.reverse() // 자신을 뒤집는다.
+    println("[after reverse] original - myPets2 : $myPets2")
 
-    println("result2: $result2")
+    // 원상 복구 후 asReversed 알아보기
+    myPets2.reverse()
 
-    // groupingBy
-    val grouping : Grouping<Student, String> = student.groupingBy({
-        it.name
-    })
+    println("original - myPets2 : $myPets2")
+    val result = myPets2.asReversed()
+    println("[after asReversed] original - myPets2 : $result") // 일단은 결과 같다.
 
-    // 사용법
-    // 요소 하나당 몇개가 있는지만 알고 싶을 때
-    val resultA = grouping.eachCount()
-    println("resultA: $resultA")
+    myPets2.add("토끼")
+    println("original - myPets2 : $myPets2")
+    println("[after asReversed] original - myPets2 : $result") // 여기에도 토끼가 추가 되었다.
+    // 원리 복사본이 만들어졌는데 인덱스가 뒤집어진것이 만들진 것이다. 그이고 원본과 연동되어 있다.
+    // revered 된것에 추가를 해도 원본에 영향을 미친다.
 
-    // 나이 총합 알고 싶을때???
-    val resultB = grouping.fold(0){accumulator, element ->
-        accumulator + element.age
-    }
+    println("-------------------------------------")
+    // 원본에 영향을 끼치고 싶지 않다면? -> reversed 사용
+    val newResult : List<String> = myPets2.reversed()
+    println("original - myPets2 : $myPets2")
+    println("newResult: $newResult")
 
-    println("resultB: $resultB")
-
-    // aggregate를 사용해서 동일한 방법 얻고 싶을 때
-    val resultC = grouping.aggregate{ key, accumulator: Int?, element, first ->
-        if(first)
-            element.age
-        else
-            accumulator?.plus(element.age)
-    }
-    println("resultB: $resultC")
-
+    myPets2.add("토끼")
+    println("original - myPets2 : $myPets2")
+    println("newResult: $newResult") // 영향을 끼치지 않음
 
 }
 
