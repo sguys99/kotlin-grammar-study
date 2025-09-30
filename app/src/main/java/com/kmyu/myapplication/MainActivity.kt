@@ -317,43 +317,104 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //    println(flattenFriends)
 //}
 
-// 14. associate: collection을 map으로 변환
-// 컬렉션 종류
-// List: 인덱스가 존재
-// set: 동일한 요소 존재 불가
-// map: 키와 값이 매칭
+//// 14. associate: collection을 map으로 변환
+//// 컬렉션 종류
+//// List: 인덱스가 존재
+//// set: 동일한 요소 존재 불가
+//// map: 키와 값이 매칭
+//
+//// 오선 클래스를 만들어보자.
+//data class Bread(val name: String, val price: Int){}
+//
+//fun main(){
+//    val breadList = mutableListOf<Bread>()
+//    breadList.add(Bread("단팥빵1", 1000))
+//    breadList.add(Bread("단팥빵2", 1100))
+//    breadList.add(Bread("단팥빵3", 1200))
+//    breadList.add(Bread("단팥빵4", 1300))
+//    breadList.add(Bread("단팥빵4", 1400))
+//    breadList.add(Bread("단팥빵4", 1500))
+//    breadList.add(Bread("단팥빵4", 1600))
+//
+//    println(breadList)
+//
+//    /// associateWith = 키: 요소, 값: 내가 넣는 매개변수
+//    val breadMap1 : Map<Bread, Int> = breadList.associateWith({ it.price }) // value 가 될 것을 입력
+//    println("breadMap1: $breadMap1")
+//
+//    // 보통은 요소를 키로 잘 안쓴다. 보통 키를 매개변수로 쓸것이다.
+//    // associateBy = 키: 매개변수, 값: 요소
+//    val breadMap2 : Map<String, Bread> = breadList.associateBy({ it.name }) // 키가 가 될 것을 입력
+//    println("breadMap2: $breadMap2")
+//
+//    // associate = 키: 요소, 값: 요소
+//    val breadMap3 : Map<String, Bread> = breadList.associate({ it.name to it }) // name을 키, Bread를 값으로  설정
+//    println("breadMap3: $breadMap3")
+//
+//    // 맵은 키가 고유해야한다.따라서 단팥빵4에서 최신 값이 업데이트 되었다.
+//
+//}
 
-// 오선 클래스를 만들어보자.
-data class Bread(val name: String, val price: Int){}
+// 15. filter
+data class Friend(val name: String, val age: Int){}
 
 fun main(){
-    val breadList = mutableListOf<Bread>()
-    breadList.add(Bread("단팥빵1", 1000))
-    breadList.add(Bread("단팥빵2", 1100))
-    breadList.add(Bread("단팥빵3", 1200))
-    breadList.add(Bread("단팥빵4", 1300))
-    breadList.add(Bread("단팥빵4", 1400))
-    breadList.add(Bread("단팥빵4", 1500))
-    breadList.add(Bread("단팥빵4", 1600))
+    val myFriends = mutableListOf<Friend>()
 
-    println(breadList)
+    myFriends.add(Friend("Bob1", 10))
+    myFriends.add(Friend("Bob2", 13))
+    myFriends.add(Friend("Bob3", 16))
+    myFriends.add(Friend("Bob4", 20))
+    myFriends.add(Friend("Bob5", 24))
+    myFriends.add(Friend("Bob6", 100))
+    myFriends.add(Friend("Bob6", 101))
+    myFriends.add(Friend("호시기", 102))
+    myFriends.add(Friend("Bob6", 103))
+    myFriends.add(Friend("Bob6", 104))
 
-    /// associateWith = 키: 요소, 값: 내가 넣는 매개변수
-    val breadMap1 : Map<Bread, Int> = breadList.associateWith({ it.price }) // value 가 될 것을 입력
-    println("breadMap1: $breadMap1")
+    val filteredList = myFriends.filter({
+        it.age < 20
+    })
 
-    // 보통은 요소를 키로 잘 안쓴다. 보통 키를 매개변수로 쓸것이다.
-    // associateBy = 키: 매개변수, 값: 요소
-    val breadMap2 : Map<String, Bread> = breadList.associateBy({ it.name }) // 키가 가 될 것을 입력
-    println("breadMap2: $breadMap2")
+    println("filteredList: ${filteredList}")
 
-    // associate = 키: 요소, 값: 요소
-    val breadMap3 : Map<String, Bread> = breadList.associate({ it.name to it }) // name을 키, Bread를 값으로  설정
-    println("breadMap3: $breadMap3")
+    // 필터 사용 예시
+    // 요소 찾기
+    val foundFriends = myFriends.filter({
+        it.name == "호시기"
+    }).first()
 
-    // 맵은 키가 고유해야한다.따라서 단팥빵4에서 최신 값이 업데이트 되었다.
+    println(foundFriends)
 
+    val foundFriends2 = myFriends.filter({
+        it.name == "호시기2"
+    }).firstOrNull() // Null이 있어도 에러 발생안함
+
+    println(foundFriends2)
+
+    // ***인라인으로 사용하기
+    val filteredList2 = myFriends.filter(::filteredYoung)
+    println(filteredList2)
+
+    val filteredList3 = myFriends.filter(FriendFilter.YOUNG::filter) // 확인요
+    println(filteredList3)
 }
+
+fun filteredYoung(friend: Friend) : Boolean{
+    return friend.age < 20
+}
+
+// enum class에 필터 적용 가능
+enum class FriendFilter {
+    OLD, YOUNG;
+    fun filter(friend: Friend) : Boolean{
+        return when(this){
+            OLD -> friend.age >= 20
+            YOUNG -> friend.age < 20
+        }
+    }
+}
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
