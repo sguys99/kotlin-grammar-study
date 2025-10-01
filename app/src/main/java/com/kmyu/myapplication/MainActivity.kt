@@ -477,49 +477,49 @@ import com.kmyu.myapplication.ui.theme.MyApplicationTheme
 //}
 
 
-// 17. reverse: 리스트 순서 뒤집기
-
-fun main(){
-    val myPets : List<String> = listOf<String>("고양이", "강아지", "소")
-
-    val reversed1 = myPets.reversed()
-    val reversed2 = myPets.asReversed()
-
-    // 결과가 같다.
-    println("reversed1 : $reversed1")
-    println("reversed2 : $reversed2")
-
-    // 그러나 mutable일때 주의
-    val myPets2: MutableList<String> = mutableListOf<String>("고양이", "강아지", "소")
-
-    println("original - myPets2 : $myPets2")
-    myPets2.reverse() // 자신을 뒤집는다.
-    println("[after reverse] original - myPets2 : $myPets2")
-
-    // 원상 복구 후 asReversed 알아보기
-    myPets2.reverse()
-
-    println("original - myPets2 : $myPets2")
-    val result = myPets2.asReversed()
-    println("[after asReversed] original - myPets2 : $result") // 일단은 결과 같다.
-
-    myPets2.add("토끼")
-    println("original - myPets2 : $myPets2")
-    println("[after asReversed] original - myPets2 : $result") // 여기에도 토끼가 추가 되었다.
-    // 원리 복사본이 만들어졌는데 인덱스가 뒤집어진것이 만들진 것이다. 그이고 원본과 연동되어 있다.
-    // revered 된것에 추가를 해도 원본에 영향을 미친다.
-
-    println("-------------------------------------")
-    // 원본에 영향을 끼치고 싶지 않다면? -> reversed 사용
-    val newResult : List<String> = myPets2.reversed()
-    println("original - myPets2 : $myPets2")
-    println("newResult: $newResult")
-
-    myPets2.add("토끼")
-    println("original - myPets2 : $myPets2")
-    println("newResult: $newResult") // 영향을 끼치지 않음
-
-}
+//// 17. reverse: 리스트 순서 뒤집기
+//
+//fun main(){
+//    val myPets : List<String> = listOf<String>("고양이", "강아지", "소")
+//
+//    val reversed1 = myPets.reversed()
+//    val reversed2 = myPets.asReversed()
+//
+//    // 결과가 같다.
+//    println("reversed1 : $reversed1")
+//    println("reversed2 : $reversed2")
+//
+//    // 그러나 mutable일때 주의
+//    val myPets2: MutableList<String> = mutableListOf<String>("고양이", "강아지", "소")
+//
+//    println("original - myPets2 : $myPets2")
+//    myPets2.reverse() // 자신을 뒤집는다.
+//    println("[after reverse] original - myPets2 : $myPets2")
+//
+//    // 원상 복구 후 asReversed 알아보기
+//    myPets2.reverse()
+//
+//    println("original - myPets2 : $myPets2")
+//    val result = myPets2.asReversed()
+//    println("[after asReversed] original - myPets2 : $result") // 일단은 결과 같다.
+//
+//    myPets2.add("토끼")
+//    println("original - myPets2 : $myPets2")
+//    println("[after asReversed] original - myPets2 : $result") // 여기에도 토끼가 추가 되었다.
+//    // 원리 복사본이 만들어졌는데 인덱스가 뒤집어진것이 만들진 것이다. 그이고 원본과 연동되어 있다.
+//    // revered 된것에 추가를 해도 원본에 영향을 미친다.
+//
+//    println("-------------------------------------")
+//    // 원본에 영향을 끼치고 싶지 않다면? -> reversed 사용
+//    val newResult : List<String> = myPets2.reversed()
+//    println("original - myPets2 : $myPets2")
+//    println("newResult: $newResult")
+//
+//    myPets2.add("토끼")
+//    println("original - myPets2 : $myPets2")
+//    println("newResult: $newResult") // 영향을 끼치지 않음
+//
+//}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
